@@ -8,6 +8,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpModule } from "nativescript-angular/http";
 import {
+    viewUtilCategory,
     rendererTraceCategory,
     routerTraceCategory,
     listViewTraceCategory,
@@ -18,7 +19,8 @@ import { Page } from "ui/page";
 import { Color } from "color";
 import { setCategories, enable } from "trace";
 setCategories(
-    `${animationsTraceCategory},${rendererTraceCategory}`
+    viewUtilCategory + ", " +
+    rendererTraceCategory
 );
 // setCategories(routerTraceCategory);
 // setCategories(listViewTraceCategory);
@@ -90,11 +92,11 @@ function makeExampleModule(componentType) {
 
     let providers = [];
     if (componentType.providers) {
-        providers = [componentType.providers];
+        providers = [ componentType.providers ];
     }
 
     @NgModule({
-        bootstrap: [componentType],
+        bootstrap: [ componentType ],
         imports,
         entryComponents: entries,
         declarations: [
@@ -118,7 +120,7 @@ const customPageFactoryProvider = {
     }
 };
 
-// platformNativeScriptDynamic().bootstrapModule(makeExampleModule(RendererTest));
+platformNativeScriptDynamic().bootstrapModule(makeExampleModule(RendererTest));
 // platformNativeScriptDynamic(undefined, [customPageFactoryProvider]).bootstrapModule(makeExampleModule(RendererTest));
 // platformNativeScriptDynamic().bootstrapModule(makeExampleModule(TabViewTest));
 // platformNativeScriptDynamic().bootstrapModule(makeExampleModule(Benchmark));
@@ -139,31 +141,31 @@ const customPageFactoryProvider = {
 // platformNativeScriptDynamic().bootstrapModule(makeExampleModule(LoginAppComponent));
 
 // animations
-platformNativeScriptDynamic().bootstrapModule(makeExampleModule(AnimationStatesTest));
+// platformNativeScriptDynamic().bootstrapModule(makeExampleModule(AnimationStatesTest));
 // platformNativeScriptDynamic().bootstrapModule(makeExampleModule(AnimationStatesMultiTest));
 // platformNativeScriptDynamic().bootstrapModule(makeExampleModule(AnimationNgClassTest));
 // platformNativeScriptDynamic().bootstrapModule(makeExampleModule(AnimationKeyframesTest));
 // platformNativeScriptDynamic().bootstrapModule(makeExampleModule(AnimationEnterLeaveTest));
 
 // Livesync test
-let cachedUrl: string;
-onBeforeLivesync.subscribe((moduleRef) => {
-    console.log("------- onBeforeLivesync");
-    if (moduleRef) {
-        const router = <Router>moduleRef.injector.get(Router);
-        cachedUrl = router.url;
-        console.log("------- Caching URL: " + cachedUrl);
-    }
-});
+// let cachedUrl: string;
+// onBeforeLivesync.subscribe((moduleRef) => {
+//     console.log("------- onBeforeLivesync");
+//     if (moduleRef) {
+//         const router = <Router>moduleRef.injector.get(Router);
+//         cachedUrl = router.url;
+//         console.log("------- Caching URL: " + cachedUrl);
+//     }
+// });
 
-onAfterLivesync.subscribe((moduleRef) => {
-    console.log("------- onAfterLivesync cachedUrl:");
-    const router = <Router>moduleRef.injector.get(Router);
-    router.events.subscribe(e => console.log(e.toString()));
-    if (router && cachedUrl) {
-        setTimeout(() => { router.navigateByUrl(cachedUrl); }, 0);
-    }
-});
+// onAfterLivesync.subscribe((moduleRef) => {
+//     console.log("------- onAfterLivesync cachedUrl:");
+//     const router = <Router>moduleRef.injector.get(Router);
+//     router.events.subscribe(e => console.log(e.toString()));
+//     if (router && cachedUrl) {
+//         setTimeout(() => { router.navigateByUrl(cachedUrl); }, 0);
+//     }
+// });
 
 // platformNativeScriptDynamic().bootstrapModule(makeExampleModule(LivesyncApp));
 console.log("APP RESTART");
