@@ -161,10 +161,7 @@ export class NativeScriptPlatformRef extends PlatformRef {
                         bootstrapPromiseCompleted = true;
 
                         bootstrapLog(`Angular bootstrap bootstrap done. uptime: ${uptime()}`);
-                        rootContent = tempAppHostView.content;
-                        tempAppHostView.content = null;
-                        tempAppHostView.ngAppRoot = rootContent;
-                        rootContent.parentNode = tempAppHostView;
+                        rootContent = tempAppHostView.ngAppRoot;
                         lastBootstrappedModule = new WeakRef(moduleRef);
                     },
                     err => {
@@ -213,10 +210,7 @@ export class NativeScriptPlatformRef extends PlatformRef {
                 bootstrapLog("Angular livesync done.");
                 onAfterLivesync.next({ moduleRef });
 
-                rootContent = tempAppHostView.content;
-                tempAppHostView.content = null;
-                tempAppHostView.ngAppRoot = rootContent;
-                rootContent.parentNode = tempAppHostView;
+                rootContent = tempAppHostView.ngAppRoot;
                 lastBootstrappedModule = new WeakRef(moduleRef);
             },
             error => {

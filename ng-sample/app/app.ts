@@ -187,4 +187,5 @@ onAfterLivesync.subscribe(({ moduleRef, error }) => {
 
 // platformNativeScriptDynamic().bootstrapModule(makeExampleModule(LivesyncApp));
 // console.log("APP RESTART!!!!  !!!");
-platformNativeScriptDynamic().bootstrapModule(makeExampleModule(ModalTest));
+// platformNativeScriptDynamic().bootstrapModule(makeExampleModule(ModalTest));
+platformNativeScriptDynamic().bootstrapModule(makeExampleModule(ModalNestedTest));
